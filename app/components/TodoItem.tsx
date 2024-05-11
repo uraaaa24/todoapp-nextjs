@@ -19,6 +19,18 @@ const editTodo = async (id: string, newTitle: string): Promise<Todo> => {
   return updatedTodo;
 }
 
+const deleteTodo = async (id: string): Promise<Todo> => {
+  const response = await fetch(`http://localhost:8000/todos/${id}`, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  const deletedTodo = await response.json();
+
+  return deletedTodo;
+}
+
 interface TodoItemProps {
   todo: Todo
 }
@@ -42,6 +54,12 @@ const TodoItem = ({todo}: TodoItemProps) => {
     router.refresh()
   }
 
+  const handleDelete = async () => {
+    await deleteTodo(todo.id)
+
+    router.refresh()
+  }
+
   useEffect(() => {
     if (isEditing) {
       ref.current?.focus()
@@ -61,7 +79,7 @@ const TodoItem = ({todo}: TodoItemProps) => {
       ) : (
         <button onClick={handleEdit} className="text-green-500">Edit</button>
       )}
-      <button className="text-red-500">Delete</button>
+      <button onClick={handleDelete} className="text-red-500">Delete</button>
     </div>
   </li>
   )
