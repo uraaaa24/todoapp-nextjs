@@ -17,6 +17,7 @@ const addTodo = async (todo: Todo): Promise<Todo> => {
 
   return newTodo;
 }
+
 const AddTask = () => {
   const router = useRouter() 
 
