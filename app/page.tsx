@@ -2,7 +2,9 @@ import AddTask from "./components/AddTask";
 import TodoList from "./components/TodoList";
 
 const getAllTodos = async () => {
-  const response = await fetch("http://localhost:8000/todos");
+  const response = await fetch("http://localhost:8000/todos",{
+    cache: "no-store"
+  });
   const todos = await response.json();
 
   return todos;
